@@ -4,6 +4,8 @@ A generic, teachable framework for building, managing, and running a fleet of AI
 
 This repo is deliberately **empty of agents**. It gives you the scaffolding, conventions, and docs so you can stand up your own agents without inventing the plumbing from scratch.
 
+> **Taking a class on this?** Start with [`START_HERE.md`](START_HERE.md) — it covers the philosophy, the accounts you need, and how to prepare.
+
 ## What You Get
 
 - A repeatable file structure for agent definitions (each agent = a folder of markdown).
@@ -72,6 +74,7 @@ Full write-up in [`docs/principles.md`](docs/principles.md).
 ```
 public-agent-infra/
 ├── README.md                      # this file
+├── START_HERE.md                  # class participant guide — read first
 ├── SETUP.md                       # end-to-end onboarding
 ├── config.example.yaml            # template — copy to config.yaml and personalize
 ├── .env.example                   # env template (only needed if using Supabase)
