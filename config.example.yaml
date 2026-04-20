@@ -1,0 +1,107 @@
+# Agent Infra Configuration
+# Copy to config.yaml and fill in your values. config.yaml is gitignored.
+#
+# This file is the single identity/config source for your agent fleet.
+# Every agent reads it at startup. Keep it small and declarative.
+
+# ---------------------------------------------------------------------------
+# 1. User — whose perspective agents operate from.
+# ---------------------------------------------------------------------------
+user:
+  name: "First Last"
+  email: "you@example.com"
+  role: "Your role (e.g. Founder, Ops Lead)"
+  timezone: "America/Los_Angeles"          # IANA timezone
+  aliases:                                  # nicknames people use for you
+    - "First"
+
+# ---------------------------------------------------------------------------
+# 2. Organization — team / firm metadata.
+# ---------------------------------------------------------------------------
+organization:
+  name: "Your Org Name"
+  domain: "example.com"
+  # Add team members here if other people may assign tasks to agents.
+  team: []
+  # - name: "Teammate Name"
+  #   email: "teammate@example.com"
+  #   role: "Role"
+
+# ---------------------------------------------------------------------------
+# 3. Agents — one entry per agent you run. Empty by default.
+# ---------------------------------------------------------------------------
+# Convention: each agent has its own email and its own Todoist account.
+# `todoist_user_id` is the agent's collaborator ID — set after the Todoist
+# account is created. Agents use it to detect @mentions and assignment.
+#
+# Example (uncomment and edit):
+# agents:
+#   example:
+#     email: "example@example.com"
+#     role: "One-line description"
+#     skill: "agents/example/SKILL.md"
+#     tasklet_intelligence: "advanced"     # basic | advanced | expert | genius
+#     todoist_user_id: ""                   # fill in after Todoist account exists
+agents: {}
+
+# ---------------------------------------------------------------------------
+# 4. Platforms — central registry of every tool the org uses.
+# ---------------------------------------------------------------------------
+# Each platform declares how agents access it:
+#   mcp      — via an MCP connector (direct agent access)
+#   manual   — human-only; agents must never act here
+#   indirect — agent interacts via another channel (e.g. CC'ing an email agent)
+#   partial  — some operations automated, others manual
+#   tasklet  — wired through a Tasklet-native connector
+#
+# Add, remove, or rename platforms to match your stack. Each agent's SKILL.md
+# declares which subset of these it uses.
+platforms:
+
+  # --- Task management (required — this is the queue agents run on) ---
+  tasks:
+    todoist:
+      access: mcp
+      notes: "Task queue, human approval, inter-agent handoffs. One account per agent."
+
+  # --- Example categories. Uncomment and fill in as needed. ---
+  # communication:
+  #   email:
+  #     access: mcp
+  #     notes: "Agents draft via create_draft, never send without approval."
+  #   imessage:
+  #     access: mcp
+  #     notes: "macOS only. Reading OK; sending requires approval."
+
+  # people:
+  #   crm:
+  #     access: mcp
+  #     notes: "Your CRM — entity resolution, contacts, deal flow."
+
+  # scheduling:
+  #   calendar:
+  #     access: mcp
+  #     notes: "Primary calendar — source of truth for scheduling."
+
+  # documents:
+  #   drive:
+  #     access: partial
+  #     notes: "Links known from config; sharing operations are manual."
+
+# ---------------------------------------------------------------------------
+# 5. Processing — shared knobs used by multiple agents.
+# ---------------------------------------------------------------------------
+processing:
+  # If an agent processes events (meetings, emails, etc.) that take time to
+  # become "ready" (transcript generation, indexing), wait this many minutes
+  # before processing. Prevents acting on half-complete data.
+  readiness_buffer_minutes: 10
+
+# ---------------------------------------------------------------------------
+# 6. Supabase — optional, only set when you enable the Supabase add-on.
+# ---------------------------------------------------------------------------
+# See docs/adding-supabase.md. If omitted, agents operate statelessly across
+# sessions (each run is independent).
+# supabase:
+#   url: "https://YOUR-PROJECT.supabase.co"
+#   # service_role key lives in .env (never commit it)

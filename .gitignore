@@ -1,0 +1,25 @@
+# Personal / environment
+config.yaml
+.env
+.env.local
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/
+*.swp
+
+# Agent artifacts
+agents/*/memory/
+agents/*/tmp/
